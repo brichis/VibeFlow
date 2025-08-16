@@ -11,6 +11,7 @@ import { Address } from "viem";
 import { useNetworkColor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
+import { usePortoLogin } from '../../PortoLogin'
 
 /**
  * Custom Wagmi Connect Button (watch balance + custom design)
@@ -31,8 +32,9 @@ export const RainbowKitCustomConnectButton = () => {
           <>
             {(() => {
               if (!connected) {
+                const { openPortoModal } = usePortoLogin()
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
+                  <button className="btn btn-primary btn-sm" onClick={openPortoModal} type="button">
                     Log in
                   </button>
                 );
