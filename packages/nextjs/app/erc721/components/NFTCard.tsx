@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { Collectible } from "./MyNfts";
-import { Address, AddressInput } from "~~/components/scaffold-eth";
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { Address } from "~~/components/scaffold-eth";
 
 export const NFTCard = ({ nft, transfer }: { nft: Collectible; transfer?: boolean }) => {
   const [transferToAddress, setTransferToAddress] = useState("");
-
-  const { writeContractAsync } = useScaffoldWriteContract("SE2NFT");
 
   return (
     <div className="card card-compact bg-base-100 shadow-lg w-[300px] shadow-secondary">
@@ -29,10 +26,12 @@ export const NFTCard = ({ nft, transfer }: { nft: Collectible; transfer?: boolea
           <>
             <div className="flex flex-col my-2 space-y-1">
               <span className="text-lg font-semibold mb-1">Transfer To: </span>
-              <AddressInput
+              <input
+                type="text"
                 value={transferToAddress}
                 placeholder="receiver address"
-                onChange={newValue => setTransferToAddress(newValue)}
+                onChange={(e) => setTransferToAddress(e.target.value)}
+                className="input input-bordered w-full"
               />
             </div>
             <div className="card-actions justify-end">
@@ -40,12 +39,11 @@ export const NFTCard = ({ nft, transfer }: { nft: Collectible; transfer?: boolea
                 className="btn btn-secondary btn-md px-8 tracking-wide"
                 onClick={() => {
                   try {
-                    writeContractAsync({
-                      functionName: "transferFrom",
-                      args: [nft.owner, transferToAddress, BigInt(nft.id.toString())],
-                    });
+                    // TODO: Implement Flow NFT transfer logic
+                    console.log("Transferring NFT", nft.id, "to", transferToAddress);
+                    setTransferToAddress("");
                   } catch (err) {
-                    console.error("Error calling transferFrom function");
+                    console.error("Error calling transfer function");
                   }
                 }}
               >

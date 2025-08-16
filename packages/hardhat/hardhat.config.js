@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import { flowMainnet } from "viem/chains";
 dotenv.config();
 
 
@@ -28,7 +29,7 @@ const config = {
       },
     ],
   },
-  defaultNetwork: "sepolia",
+  defaultNetwork: "flowMainnet",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -44,6 +45,11 @@ const config = {
         url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
+    },
+    flowMainnet: {
+      type: "http",
+      url: "https://mainnet.evm.nodes.onflow.org",
+      accounts: [deployerPrivateKey],
     },
     mainnet: {
       type: "http",

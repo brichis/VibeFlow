@@ -4,16 +4,10 @@ import { useState } from "react";
 import { AllNfts } from "./components/AllNfts";
 import { MyNfts } from "./components/MyNfts";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { AddressInput, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 
 const ERC721: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
-
   const [toAddress, setToAddress] = useState<string>("");
-
-  const { writeContractAsync: writeSE2TokenAsync } = useScaffoldWriteContract("SE2NFT");
 
   return (
     <>
@@ -83,56 +77,51 @@ const ERC721: NextPage = () => {
           </div>
         </div>
 
-        {connectedAddress ? (
-          <div className="flex flex-col justify-center items-center bg-base-300 w-full mt-8 px-8 pt-6 pb-12">
-            <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row mb-2">
+        <div className="flex flex-col justify-center items-center bg-base-300 w-full mt-8 px-8 pt-6 pb-12">
+          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row mb-2">
+            <p className="text-xl font-bold mb-4">Connect your Flow wallet to get started</p>
+            <DynamicWidget />
+          </div>
+          
+          <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full md:w-2/4 rounded-3xl mt-5 mb-8">
+            <h3 className="text-2xl font-bold">Mint token to another address</h3>
+            <div className="flex flex-col items-center justify-between w-full lg:w-3/5 px-2 mt-4">
+              <div className="font-bold mb-2">To:</div>
+              <div>
+                <input
+                  type="text"
+                  value={toAddress}
+                  placeholder="Address"
+                  onChange={(e) => setToAddress(e.target.value)}
+                  className="input input-bordered w-full"
+                />
+              </div>
+            </div>
+            <div>
               <button
-                className="btn btn-accent text-lg px-12 mt-2"
+                className="btn btn-primary text-lg px-12 mt-2"
+                disabled={!toAddress}
                 onClick={async () => {
                   try {
-                    await writeSE2TokenAsync({ functionName: "mintItem", args: [connectedAddress] });
+                    // TODO: Implement Flow NFT minting logic
+                    console.log("Minting to address:", toAddress);
+                    setToAddress("");
                   } catch (e) {
                     console.error("Error while minting token", e);
                   }
                 }}
               >
-                Mint token to your address
+                Mint
               </button>
             </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full md:w-2/4 rounded-3xl mt-5 mb-8">
-              <h3 className="text-2xl font-bold">Mint token to another address</h3>
-              <div className="flex flex-col items-center justify-between w-full lg:w-3/5 px-2 mt-4">
-                <div className="font-bold mb-2">To:</div>
-                <div>
-                  <AddressInput value={toAddress} onChange={setToAddress} placeholder="Address" />
-                </div>
-              </div>
-              <div>
-                <button
-                  className="btn btn-primary text-lg px-12 mt-2"
-                  disabled={!toAddress}
-                  onClick={async () => {
-                    try {
-                      await writeSE2TokenAsync({ functionName: "mintItem", args: [toAddress] });
-                      setToAddress("");
-                    } catch (e) {
-                      console.error("Error while minting token", e);
-                    }
-                  }}
-                >
-                  Mint
-                </button>
-              </div>
-            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-lg mb-4">NFT functionality will be available once Flow integration is complete</p>
             <MyNfts />
             <AllNfts />
           </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center bg-base-300 w-full mt-8 px-8 pt-6 pb-12">
-            <p className="text-xl font-bold">Sign in or log in to your account.</p>
-            <RainbowKitCustomConnectButton />
-          </div>
-        )}
+        </div>
       </div>
     </>
   );
