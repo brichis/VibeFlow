@@ -129,7 +129,7 @@ const ERC721: NextPage = () => {
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center bg-base-300 w-full mt-8 px-8 pt-6 pb-12">
-            <p className="text-xl font-bold">Please connect your wallet to interact with the token.</p>
+            <p className="text-xl font-bold">Sign in or log in to your account.</p>
             <RainbowKitCustomConnectButton />
           </div>
         )}
