@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo } from "react";
 import { useSessionStorage } from "usehooks-ts";
-import { ContractUI } from "~~/app/demo/_components/contract";
+import { ContractUI } from "~~/app/debug/_components/contract";
 import { ContractName, GenericContract } from "~~/utils/scaffold-eth/contract";
 import { useAllContracts } from "~~/utils/scaffold-eth/contractsData";
 
 const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 
-export function DemoContracts() {
+export function DebugContracts() {
   const contractsData = useAllContracts();
   const contractNames = useMemo(
     () =>

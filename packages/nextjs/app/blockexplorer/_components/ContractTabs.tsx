@@ -26,9 +26,12 @@ const publicClient = createPublicClient({
 });
 
 export const ContractTabs = ({ address, contractData }: PageProps) => {
-  const { blocks, transactionReceipts, currentPage, totalBlocks, setCurrentPage } = useFetchBlocks();
+  const { blocks } = useFetchBlocks();
   const [activeTab, setActiveTab] = useState("transactions");
   const [isContract, setIsContract] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalBlocks, setTotalBlocks] = useState(0);
+  const [transactionReceipts, setTransactionReceipts] = useState<any[]>([]);
 
   useEffect(() => {
     const checkIsContract = async () => {
@@ -40,7 +43,7 @@ export const ContractTabs = ({ address, contractData }: PageProps) => {
   }, [address]);
 
   const filteredBlocks = blocks.filter(block =>
-    block.transactions.some(tx => {
+    block.transactions.some((tx: any) => {
       if (typeof tx === "string") {
         return false;
       }

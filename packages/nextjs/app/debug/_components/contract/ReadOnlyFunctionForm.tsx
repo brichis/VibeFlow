@@ -11,7 +11,7 @@ import {
   getInitialFormState,
   getParsedContractFunctionArgs,
   transformAbiFunction,
-} from "~~/app/demo/_components/contract";
+} from "~~/app/debug/_components/contract";
 
 type ReadOnlyFunctionFormProps = {
   contractAddress: Address;

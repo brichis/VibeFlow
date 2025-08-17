@@ -41,6 +41,20 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
     setMounted(true);
   }, []);
 
+  // Add error handling for Dynamic SDK
+  useEffect(() => {
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      if (event.reason && event.reason.message && event.reason.message.includes('Failed to fetch')) {
+        console.warn('Dynamic SDK fetch error caught:', event.reason);
+        // Prevent the error from showing in console
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    return () => window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+  }, []);
+
   return (
     <DynamicContextProvider
       settings={{
@@ -66,10 +80,10 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
               iconUrls: ["https://flow.com/favicon.ico"],
             },
             {
-              chainId: 747,
+              chainId: 545,
               chainName: "Flow EVM Testnet",
               name: "Flow EVM Testnet",
-              networkId: 747,
+              networkId: 545,
               nativeCurrency: {
                 name: "Flow",
                 symbol: "FLOW",
@@ -83,7 +97,7 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
         },
         
         // Flow network configuration
-        walletConnectPreferredChains: ["eip155:747"], // Flow EVM Chain ID
+        walletConnectPreferredChains: ["eip155:545"], // Flow EVM Chain ID
       }}
     >
       <QueryClientProvider client={queryClient}>

@@ -1,15 +1,15 @@
 {
   "contracts": {
     "FriendshipBraceletNFT": {
-      "address": "0x362A6A19d8644B468218961ad442928551268D75",
-      "blockNumber": 63669465
+      "address": "0xe46c683691aD993133CdE2A0cc19cCae724fE93d",
+      "blockNumber": 63675381
     },
     "ANewFriendship": {
-      "address": "0x475734aCA2321947F35d1e8fE459E228Da361449",
-      "blockNumber": 63669465
+      "address": "0x689B1d8FB0c64ACFEeFA6BdE1d31f215e92B6fd4",
+      "blockNumber": 63675381
     }
   },
   "network": "flowTestnet",
   "deployer": "0x1F3bfa0620f95fda15E67F3e8FA459A258559E94",
-  "timestamp": "2025-08-17T06:28:19.933Z"
+  "timestamp": "2025-08-17T07:17:38.234Z"
 }
