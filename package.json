@@ -2,6 +2,18 @@
   "name": "se-2",
   "version": "0.0.1",
   "private": true,
+  "description": "Scaffold-ETH 2 with Flow EVM integration - A complete development environment for smart contracts and dApps",
+  "keywords": [
+    "ethereum",
+    "flow",
+    "smart-contracts",
+    "dapp",
+    "hardhat",
+    "nextjs",
+    "typescript"
+  ],
+  "author": "SE-2 Team",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
@@ -45,13 +57,20 @@
     "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo",
     "ipfs": "yarn workspace @se-2/nextjs ipfs",
     "vercel:login": "yarn workspace @se-2/nextjs vercel:login",
-    "verify": "yarn hardhat:verify"
+    "verify": "yarn hardhat:verify",
+    "dev": "yarn start",
+    "build": "yarn next:build",
+    "clean": "yarn hardhat:clean && yarn next:build",
+    "typecheck": "yarn next:check-types && yarn hardhat:check-types",
+    "flow:deploy": "yarn workspace @se-2/hardhat deploy:flow",
+    "flow:testnet": "yarn workspace @se-2/hardhat deploy:testnet"
   },
   "dependencies": {
     "@dynamic-labs/ethereum": "^4.27.0",
     "@dynamic-labs/flow": "^4.27.0",
     "@dynamic-labs/sdk-react-core": "^4.27.0",
     "@dynamic-labs/wagmi-connector": "^4.27.0",
+    "@openzeppelin/contracts": "^5.4.0",
     "@tanstack/react-query": "^5.85.3",
     "@wagmi/core": "^1.4.0",
     "@walletconnect/environment": "^1.0.1",
@@ -65,11 +84,21 @@
     "wagmi": "^2.16.3"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-verify": "^3.0.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10"
   },
   "engines": {
     "node": ">=20.18.3"
   },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "yarn@4.9.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scaffold-eth/scaffold-eth-2.git",
+    "directory": "."
+  },
+  "bugs": {
+    "url": "https://github.com/scaffold-eth/scaffold-eth-2/issues"
+  },
+  "homepage": "https://github.com/scaffold-eth/scaffold-eth-2#readme"
 }

@@ -19,20 +19,16 @@ const scaffoldConfig = {
   pollingInterval: 30000,
   // This is ours Alchemy's default API key.
   // You can get your own at https://dashboard.alchemyapi.io
-  // It's recommended to store it in an env variable:
-  // .env.local for local testing, and in the Vercel/system env config for live apps.
+  // You can also set your own key at https://app.dynamic.xyz/dashboard/developer
   alchemyApiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || DEFAULT_ALCHEMY_API_KEY,
-  // If you want to use a different RPC for a specific network, you can add it here.
-  // The key is the chain ID, and the value is the HTTP RPC URL
-  rpcOverrides: {
-    // Flow EVM Mainnet RPC (Chain ID: 747)
-    [chains.mainnet.id]: "https://mainnet.evm.nodes.onflow.org",
-  },
   // This is ours WalletConnect's default project ID.
   // You can get your own at https://cloud.walletconnect.com
-  // It's recommended to store it in an env variable:
-  // .env.local for local testing, and in the Vercel/system env config for live apps.
-  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "3a8170812b534d0ff9d794f19a901d64",
+  // You can also set your own key at https://app.dynamic.xyz/dashboard/developer
+  walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "c4f79cc821944d9680842e34466bfbd9",
+  // RPC Overrides for Flow EVM
+  rpcOverrides: {
+    747: "https://mainnet.evm.nodes.onflow.org", // Flow EVM Mainnet
+  },
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;

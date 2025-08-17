@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import { ethers, Wallet } from "ethers";
-import QRCode from "qrcode";
 import { config } from "hardhat";
 import password from "@inquirer/password";
 
@@ -24,7 +23,6 @@ async function main() {
   }
 
   const address = wallet.address;
-  console.log(await QRCode.toString(address, { type: "terminal", small: true }));
   console.log("Public address:", address, "\n");
 
   // Balance on each network
@@ -33,7 +31,7 @@ async function main() {
     try {
       const network = availableNetworks[networkName];
       if (!("url" in network)) continue;
-      const provider = new ethers.JsonRpcProvider(network.url);
+      const provider = new ethers.JsonRpcProvider(network.url as unknown as string);
       await provider._detectNetwork();
       const balance = await provider.getBalance(address);
       console.log("--", networkName, "-- 📡");

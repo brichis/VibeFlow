@@ -7,8 +7,9 @@ import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
-import { DynamicContextProvider, FilterChain } from "@dynamic-labs/sdk-react-core";
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
 import { FlowWalletConnectors } from "@dynamic-labs/flow";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -45,9 +46,29 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
       settings={{
         // Get your environment ID from https://app.dynamic.xyz/dashboard/developer
         environmentId: "533d6656-deb7-490a-8306-37615b2c8163",
-        walletConnectors: [FlowWalletConnectors],
+        walletConnectors: [FlowWalletConnectors, EthereumWalletConnectors],
         
-        // Basic Flow configuration
+        // Flow EVM network configuration
+        overrides: {
+          evmNetworks: [
+            {
+              chainId: 747,
+              chainName: "Flow EVM Mainnet",
+              name: "Flow EVM",
+              networkId: 747,
+              nativeCurrency: {
+                name: "Flow",
+                symbol: "FLOW",
+                decimals: 18,
+              },
+              rpcUrls: ["https://mainnet.evm.nodes.onflow.org"],
+              blockExplorerUrls: ["https://evm.flowscan.io"],
+              iconUrls: ["https://flow.com/favicon.ico"],
+            },
+          ],
+        },
+        
+        // Flow network configuration
         walletConnectPreferredChains: ["eip155:747"], // Flow EVM Mainnet Chain ID
       }}
     >

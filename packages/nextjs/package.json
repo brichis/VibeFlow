@@ -16,6 +16,7 @@
     "vercel:yolo": "vercel --build-env YARN_ENABLE_IMMUTABLE_INSTALLS=false --build-env ENABLE_EXPERIMENTAL_COREPACK=1 --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true --build-env VERCEL_TELEMETRY_DISABLED=1"
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^4.27.0",
     "@dynamic-labs/flow": "^4.27.0",
     "@dynamic-labs/sdk-react-core": "^4.27.0",
     "@heroicons/react": "~2.1.5",
@@ -31,6 +32,7 @@
     "react-dom": "^19.1.1",
     "react-hot-toast": "~2.4.0",
     "usehooks-ts": "~3.1.0",
+    "viem": "^2.33.3",
     "zustand": "~5.0.0"
   },
   "devDependencies": {
