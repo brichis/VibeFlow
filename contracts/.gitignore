@@ -8,6 +8,9 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.cursor
+.husky
+.github
 
 # eslint
 .eslintcache
