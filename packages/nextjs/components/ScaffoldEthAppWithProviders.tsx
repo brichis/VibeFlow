@@ -65,11 +65,34 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
               blockExplorerUrls: ["https://evm.flowscan.io"],
               iconUrls: ["https://flow.com/favicon.ico"],
             },
+            {
+              chainId: 747,
+              chainName: "Flow EVM Testnet",
+              name: "Flow EVM Testnet",
+              networkId: 747,
+              nativeCurrency: {
+                name: "Flow",
+                symbol: "FLOW",
+                decimals: 18,
+              },
+              rpcUrls: ["https://testnet.evm.nodes.onflow.org"],
+              blockExplorerUrls: ["https://testnet.flowscan.io"],
+              iconUrls: ["https://flow.com/favicon.ico"],
+            },
           ],
         },
         
         // Flow network configuration
-        walletConnectPreferredChains: ["eip155:747"], // Flow EVM Mainnet Chain ID
+        walletConnectPreferredChains: ["eip155:747"], // Flow EVM Chain ID
+        
+        // Additional settings for better compatibility
+        enableAnalytics: false,
+        enableLogging: true,
+        enableOnramp: false,
+        enableSwap: false,
+        
+        // Theme configuration
+        theme: isDarkMode ? "dark" : "light",
       }}
     >
       <QueryClientProvider client={queryClient}>

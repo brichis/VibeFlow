@@ -1,7 +1,5 @@
-import * as chains from "viem/chains";
-
 export type BaseConfig = {
-  targetNetworks: readonly chains.Chain[];
+  targetNetworks: readonly any[];
   pollingInterval: number;
   alchemyApiKey: string;
   rpcOverrides?: Record<number, string>;
@@ -14,7 +12,7 @@ export const DEFAULT_ALCHEMY_API_KEY = "oKxs-03sij-U_N0iOlrSsZFr29-IqbuF";
 
 const scaffoldConfig = {
   // The networks on which your DApp is live - Flow EVM Mainnet
-  targetNetworks: [chains.mainnet], // Using mainnet for Flow EVM compatibility
+  targetNetworks: [{ id: 545, name: "Flow EVM Testnet" }], // Simplified network config
   // The interval at which your front-end polls the RPC servers for new data (it has no effect if you only target the local network (default is 4000))
   pollingInterval: 30000,
   // This is ours Alchemy's default API key.
@@ -27,7 +25,7 @@ const scaffoldConfig = {
   walletConnectProjectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "c4f79cc821944d9680842e34466bfbd9",
   // RPC Overrides for Flow EVM
   rpcOverrides: {
-    747: "https://mainnet.evm.nodes.onflow.org", // Flow EVM Mainnet
+    545: "https://testnet.evm.nodes.onflow.org", // Flow EVM Testnet
   },
 } as const satisfies ScaffoldConfig;
 

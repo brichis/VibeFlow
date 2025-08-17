@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
-import { PhotoIcon } from "@heroicons/react/24/outline";
 import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 
 
@@ -21,18 +20,8 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
-    label: "ERC-721",
-    href: "/erc721",
-    icon: <PhotoIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Login",
-    href: "/login",
+    label: "Demo Contracts",
+    href: "/demo",
     icon: <BugAntIcon className="h-4 w-4" />,
   },
 ];

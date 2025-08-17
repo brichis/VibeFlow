@@ -8,53 +8,88 @@ const __dirname = path.dirname(__filename);
 
 async function main() {
   // Get network from command line arguments
-  const network = process.argv[2] || "localhost";
+  const network = process.argv[2] || "flowTestnet";
   
-  // Use Flow testnet RPC and deployer private key from hardhat config
+  // Use Flow testnet RPC and deployer private key from .env
   const rpcUrl = "https://testnet.evm.nodes.onflow.org";
-  const pk = process.env.__RUNTIME_DEPLOYER_PRIVATE_KEY || "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+  const pk = process.env.PRIVATE_KEY || "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
   console.log(`🚀 Deploying to ${network}...`);
   console.log(`📡 RPC URL: ${rpcUrl}`);
 
-  const artifactPath = path.join(
-    __dirname,
-    "../artifacts/contracts/MatchNFT.sol/MatchNFT.json"
-  );
-  
-  if (!fs.existsSync(artifactPath)) {
-    throw new Error(`Contract artifact not found at ${artifactPath}. Run 'yarn compile' first.`);
-  }
-  
-  const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
-
+  // Initialize provider and wallet first
   const provider = new JsonRpcProvider(rpcUrl);
   const wallet = new Wallet(pk, provider);
-
   console.log(`👤 Deployer address: ${wallet.address}`);
 
-  const factory = new ContractFactory(artifact.abi, artifact.bytecode, wallet);
-  console.log("📦 Deploying MatchNFT contract...");
+  // Deploy FriendshipBraceletNFT first
+  const nftArtifactPath = path.join(
+    __dirname,
+    "../artifacts/contracts/FriendshipBraceletNFT.sol/FriendshipBraceletNFT.json"
+  );
   
-  const contract = await factory.deploy();
-  const tx = contract.deploymentTransaction();
-  console.log("🔗 Deploy tx:", tx?.hash);
+  if (!fs.existsSync(nftArtifactPath)) {
+    throw new Error(`NFT artifact not found at ${nftArtifactPath}. Run 'yarn compile' first.`);
+  }
   
-  const receipt = await tx.wait();
-  console.log("✅ Deployed at:", contract.target);
-  console.log("📊 Block:", receipt.blockNumber);
+  const nftArtifact = JSON.parse(fs.readFileSync(nftArtifactPath, "utf8"));
+  const nftFactory = new ContractFactory(nftArtifact.abi, nftArtifact.bytecode, wallet);
+  
+  console.log("📦 Deploying FriendshipBraceletNFT...");
+  const nftContract = await nftFactory.deploy();
+  await nftContract.waitForDeployment();
+  console.log("✅ FriendshipBraceletNFT deployed at:", nftContract.target);
+
+  // Deploy ANewFriendship with NFT contract address
+  const friendshipArtifactPath = path.join(
+    __dirname,
+    "../artifacts/contracts/ANewFriendship.sol/ANewFriendship.json"
+  );
+  
+  if (!fs.existsSync(friendshipArtifactPath)) {
+    throw new Error(`Friendship artifact not found at ${friendshipArtifactPath}. Run 'yarn compile' first.`);
+  }
+  
+  const friendshipArtifact = JSON.parse(fs.readFileSync(friendshipArtifactPath, "utf8"));
+  const friendshipFactory = new ContractFactory(friendshipArtifact.abi, friendshipArtifact.bytecode, wallet);
+  console.log("📦 Deploying ANewFriendship contract...");
+  
+  // Example friend addresses
+  const firstFriend = wallet.address;
+  const secondFriend = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+  
+  const friendshipContract = await friendshipFactory.deploy(firstFriend, secondFriend, nftContract.target);
+  await friendshipContract.waitForDeployment();
+  
+  console.log("✅ ANewFriendship deployed at:", friendshipContract.target);
   console.log("🌐 Network:", network);
   
-  // Save deployment info
+    // Save deployment info for both contracts
   const deploymentInfo = {
-    contract: "MatchNFT",
-    address: contract.target,
+    contracts: {
+      FriendshipBraceletNFT: {
+        address: nftContract.target,
+        blockNumber: 0, // We'll get this from the provider
+      },
+      ANewFriendship: {
+        address: friendshipContract.target,
+        blockNumber: 0, // We'll get this from the provider
+      }
+    },
     network: network,
-    blockNumber: receipt.blockNumber,
     deployer: wallet.address,
     timestamp: new Date().toISOString()
   };
-  
+
+  // Get current block number
+  try {
+    const currentBlock = await provider.getBlockNumber();
+    deploymentInfo.contracts.FriendshipBraceletNFT.blockNumber = currentBlock;
+    deploymentInfo.contracts.ANewFriendship.blockNumber = currentBlock;
+  } catch (error) {
+    console.log("⚠️ Could not get block number, using 0");
+  }
+
   fs.writeFileSync(
     path.join(__dirname, `../deployments/${network}.json`),
     JSON.stringify(deploymentInfo, null, 2)

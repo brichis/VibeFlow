@@ -15,7 +15,7 @@
 - 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
 - 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+![demo Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
 
 ## Requirements
 
@@ -58,7 +58,7 @@ This command deploys a test smart contract to the local network. The contract is
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `demo Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
 
 Run smart contract test with `yarn hardhat:test`
 
