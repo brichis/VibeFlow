@@ -84,15 +84,6 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
         
         // Flow network configuration
         walletConnectPreferredChains: ["eip155:747"], // Flow EVM Chain ID
-        
-        // Additional settings for better compatibility
-        enableAnalytics: false,
-        enableLogging: true,
-        enableOnramp: false,
-        enableSwap: false,
-        
-        // Theme configuration
-        theme: isDarkMode ? "dark" : "light",
       }}
     >
       <QueryClientProvider client={queryClient}>
