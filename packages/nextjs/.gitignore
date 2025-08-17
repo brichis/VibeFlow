@@ -20,11 +20,11 @@
 .DS_Store
 *.pem
 
-# debug
-npm-debug.log*
-yarn-debug.log*
+# demo
+npm-demo.log*
+yarn-demo.log*
 yarn-error.log*
-.pnpm-debug.log*
+.pnpm-demo.log*
 
 # local env files
 .env
