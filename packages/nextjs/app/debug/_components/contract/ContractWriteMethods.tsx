@@ -1,6 +1,6 @@
 import { Abi, AbiFunction } from "abitype";
-import { WriteOnlyFunctionForm } from "~~/app/demo/_components/contract";
-import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
+import { WriteOnlyFunctionForm } from "~~/app/debug/_components/contract";
+import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
 export const ContractWriteMethods = ({
   onChange,
@@ -23,10 +23,9 @@ export const ContractWriteMethods = ({
     .map(fn => {
       return {
         fn,
-        inheritedFrom: ((deployedContractData as GenericContract)?.inheritedFunctions as InheritedFunctions)?.[fn.name],
+        inheritedFrom: undefined, // Simplified - no inheritance tracking
       };
-    })
-    .sort((a, b) => (b.inheritedFrom ? b.inheritedFrom.localeCompare(a.inheritedFrom) : 1));
+    });
 
   if (!functionsToDisplay.length) {
     return <>No write methods</>;
@@ -40,7 +39,7 @@ export const ContractWriteMethods = ({
           key={`${fn.name}-${idx}}`}
           abiFunction={fn}
           onChange={onChange}
-          contractAddress={deployedContractData.address}
+          contractAddress={deployedContractData.address as `0x${string}`}
           inheritedFrom={inheritedFrom}
         />
       ))}

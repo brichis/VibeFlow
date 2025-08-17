@@ -1,6 +1,6 @@
 import { Abi, AbiFunction } from "abitype";
-import { ReadOnlyFunctionForm } from "~~/app/demo/_components/contract";
-import { Contract, ContractName, GenericContract, InheritedFunctions } from "~~/utils/scaffold-eth/contract";
+import { ReadOnlyFunctionForm } from "~~/app/debug/_components/contract";
+import { Contract, ContractName } from "~~/utils/scaffold-eth/contract";
 
 export const ContractReadMethods = ({ deployedContractData }: { deployedContractData: Contract<ContractName> }) => {
   if (!deployedContractData) {
@@ -18,10 +18,9 @@ export const ContractReadMethods = ({ deployedContractData }: { deployedContract
     .map(fn => {
       return {
         fn,
-        inheritedFrom: ((deployedContractData as GenericContract)?.inheritedFunctions as InheritedFunctions)?.[fn.name],
+        inheritedFrom: undefined, // Simplified - no inheritance tracking
       };
-    })
-    .sort((a, b) => (b.inheritedFrom ? b.inheritedFrom.localeCompare(a.inheritedFrom) : 1));
+    });
 
   if (!functionsToDisplay.length) {
     return <>No read methods</>;
@@ -32,7 +31,7 @@ export const ContractReadMethods = ({ deployedContractData }: { deployedContract
       {functionsToDisplay.map(({ fn, inheritedFrom }) => (
         <ReadOnlyFunctionForm
           abi={deployedContractData.abi as Abi}
-          contractAddress={deployedContractData.address}
+          contractAddress={deployedContractData.address as `0x${string}`}
           abiFunction={fn}
           key={fn.name}
           inheritedFrom={inheritedFrom}

@@ -16,10 +16,10 @@ const config = {
     },
   },
   networks: {
-    flowMainnet: {
-      url: "https://mainnet.evm.nodes.onflow.org",
-      accounts: [deployerPrivateKey],
-    },
+    // flowMainnet: {
+    //   url: "https://mainnet.evm.nodes.onflow.org",
+    //   accounts: [deployerPrivateKey],
+    // },
     flowTestnet: {
       url: "https://testnet.evm.nodes.onflow.org",
       accounts: [deployerPrivateKey],

@@ -8,6 +8,7 @@ VibeFlow is a social network for event-based networking that solves the adult fr
 
 67% of millennials and Gen Z report feeling lonely despite being more "connected" than ever. Traditional social networks optimize for engagement, not genuine connection. People attend events hoping to meet like-minded individuals but struggle to convert brief encounters into lasting relationships.
 
+
 ## The Solution
 VibeFlow analyzes your Eventbrite event history to match you with people who've proven their interests through real-world participation. No more "loves hiking" profiles from couch potatoes—only authentic connections based on verified shared experiences.
 

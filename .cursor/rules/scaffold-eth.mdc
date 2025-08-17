@@ -20,7 +20,7 @@ The usual dev flow is:
   - `yarn start`: Starts the frontend
 - Write a Smart Contract (modify the deployment script in `packages/hardhat/deploy` if needed)
 - Deploy it locally (`yarn deploy`)
-- Go to the `http://locahost:3000/demo` page to interact with your contract with a nice UI
+- Go to the `http://locahost:3000/debug` page to interact with your contract with a nice UI
 - Iterate until you get the functionality you want in your contract
 - Write tests for the contract in `packages/hardhat/test`
 - Create your custom UI using all the SE-2 components, hooks, and utilities.
