@@ -2,12 +2,9 @@
   "name": "se-2",
   "version": "0.0.1",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/hardhat",
-      "packages/nextjs"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "account": "yarn hardhat:account",
     "account:import": "yarn workspace @se-2/hardhat account:import",
@@ -50,7 +47,23 @@
     "vercel:login": "yarn workspace @se-2/nextjs vercel:login",
     "verify": "yarn hardhat:verify"
   },
-  "packageManager": "yarn@4.9.2",
+  "dependencies": {
+    "@dynamic-labs/ethereum": "^4.27.0",
+    "@dynamic-labs/flow": "^4.27.0",
+    "@dynamic-labs/sdk-react-core": "^4.27.0",
+    "@dynamic-labs/wagmi-connector": "^4.27.0",
+    "@tanstack/react-query": "^5.85.3",
+    "@wagmi/core": "^1.4.0",
+    "@walletconnect/environment": "^1.0.1",
+    "@walletconnect/ethereum-provider": "^2.21.8",
+    "@walletconnect/universal-provider": "^2.21.8",
+    "eventemitter3": "^5.0.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tslib": "1.14.1",
+    "viem": "^2.33.3",
+    "wagmi": "^2.16.3"
+  },
   "devDependencies": {
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10"
@@ -58,17 +71,5 @@
   "engines": {
     "node": ">=20.18.3"
   },
-  "dependencies": {
-    "@dynamic-labs/ethereum": "^4.27.0",
-    "@dynamic-labs/flow": "^4.27.0",
-    "@dynamic-labs/sdk-react-core": "^4.27.0",
-    "@dynamic-labs/wagmi-connector": "^4.27.0",
-    "@tanstack/react-query": "^5.85.3",
-    "@walletconnect/environment": "^1.0.1",
-    "@walletconnect/ethereum-provider": "^2.21.8",
-    "@walletconnect/universal-provider": "^2.21.8",
-    "tslib": "1.14.1",
-    "viem": "^2.33.3",
-    "wagmi": "^2.16.3"
-  }
+  "packageManager": "yarn@4.9.2"
 }

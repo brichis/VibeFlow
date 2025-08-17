@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
-import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
+import { DynamicContextProvider, FilterChain } from "@dynamic-labs/sdk-react-core";
 import { FlowWalletConnectors } from "@dynamic-labs/flow";
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
@@ -46,6 +46,9 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
         // Get your environment ID from https://app.dynamic.xyz/dashboard/developer
         environmentId: "533d6656-deb7-490a-8306-37615b2c8163",
         walletConnectors: [FlowWalletConnectors],
+        
+        // Basic Flow configuration
+        walletConnectPreferredChains: ["eip155:747"], // Flow EVM Mainnet Chain ID
       }}
     >
       <QueryClientProvider client={queryClient}>
